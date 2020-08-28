@@ -1,0 +1,40 @@
+
+class check{
+    char c;
+    int index;
+}
+
+class Solution {
+    public int longestValidParentheses(String s) {
+        Stack<check>stack=new Stack<>();
+        int arr[]=new int[s.length()];
+        for(int i=0;i<s.length();i++){
+            char ch=s.charAt(i);
+            if(ch==')'){
+                if(stack.size()>0 && (stack.peek()).c=='('){
+                    
+                    arr[i]=1;
+                    arr[(stack.pop()).index]=1;
+                    
+                }
+            }
+            else{
+                check temp=new check();
+                temp.c='(';
+                temp.index=i;
+                stack.push(temp);
+            }
+        }
+        int ans=0,max=0;
+        for(int i=0;i<s.length();i++){
+            if(arr[i]==1)
+                max++;
+            else
+                max=0;
+            ans=Math.max(ans,max);
+        }
+            
+        return ans;
+        
+    }
+}
