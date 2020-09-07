@@ -1,0 +1,55 @@
+class Solution {
+    
+    
+    
+    public boolean isValidSudoku(char[][] board) {
+        HashSet<Integer>hash=new HashSet<>();
+//         checking for is colum valid or not
+        for(int i=0;i<9;i++){
+            for(int j=0;j<9;j++){
+                
+                if(board[i][j]!='.'){
+                    int num=board[i][j]-'0';
+                    if(hash.contains(num))
+                        return false;
+                    hash.add(num);
+                }
+            }
+            hash=new HashSet<>();
+        }
+       
+        //         checking for is row valid or not
+        for(int i=0;i<9;i++){
+            for(int j=0;j<9;j++){
+                
+                if(board[j][i]!='.'){
+                    int num=board[j][i]-'0';
+                    if(hash.contains(num))
+                        return false;
+                    hash.add(num);
+                }
+            }
+             hash=new HashSet<>();
+        }
+        
+        //checking for 3x3
+        for(int i=0;i<9;i=i+3){
+            for(int j=0;j<9;j=j+3){
+                for(int k=i;k<i+3;k++){
+                    for(int m=j;m<j+3;m++){
+                        if(board[k][m]!='.'){
+                    int num=board[k][m]-'0';
+                    if(hash.contains(num))
+                        return false;
+                    hash.add(num);
+                      }
+                    }
+                }
+                 hash=new HashSet<>();
+            }
+        }
+        
+        
+        return true;
+    }
+}
