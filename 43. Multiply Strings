@@ -1,0 +1,64 @@
+class Solution {
+    public String multiply(String str1, String str2) {
+        if(str1.equals("0") || str2.equals("0"))
+            return "0";
+        String ans="";
+        int count=0;
+        for(int i=str2.length()-1;i>=0;i--){
+            int num1=str2.charAt(i)-'0';
+            int carry=0;
+            String temp="";
+            for(int j=str1.length()-1;j>=0;j--){
+                int num2=str1.charAt(j)-'0';
+                int mul=((num1*num2)+carry)%10;
+                carry=((num1*num2)+carry)/10;
+                if(j==0)
+                    mul=(carry*10)+mul;
+                if(i==str2.length()-1)
+                    ans=mul+ans;
+                else
+                    temp=mul+temp;
+                
+            }
+            
+            
+            //adding the two string temp and ans
+            if(temp.length()>0){
+                int flag=0;
+                String str="";
+                int k=temp.length()-1;
+                for(int j=ans.length()-1;j>=0;j--){
+                     num1=ans.charAt(j)-'0';
+                   if(j<=ans.length()-1-count){
+                       int num2=temp.charAt(k)-'0';
+                       int sum=((num1+num2)+flag)%10;
+                       flag=((num1+num2)+flag)/10;
+                       str=sum+str;
+                       k--;
+                   }
+                    else
+                        str=num1+str;     
+                } 
+                while(k>=0){
+                    int sum=((temp.charAt(k)-'0')+flag)%10;
+                   flag=((temp.charAt(k)-'0')+flag)/10;
+                    str=sum+str;
+                    k--;
+                }
+               
+                if(flag!=0){
+                    int last=(flag*10)+(str.charAt(0)-'0');
+                    flag=0;
+                    str=last+(str.substring(1));
+                }
+                   
+                 ans=str;
+            }
+           
+            
+            count++;
+        }
+        return ans;
+        
+    }
+}
