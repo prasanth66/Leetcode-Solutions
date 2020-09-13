@@ -1,0 +1,31 @@
+class Solution {
+        private void helper(int []nums,List<List<Integer>>ans,List<Integer>list,String str,HashSet<String>hash){
+        if(nums.length==0){
+           
+            if(!hash.contains(str))
+            ans.add(new ArrayList<Integer>(list));
+             hash.add(str);
+            return;
+        }
+        for(int i=0;i<nums.length;i++){
+            int temp[]=new int[nums.length-1];
+            int k=0;
+            for(int j=0;j<nums.length;j++){
+                if(j!=i)
+                    temp[k++]=nums[j];
+            }
+            list.add(nums[i]);
+           
+            helper(temp,ans,list,str+nums[i]+" ",hash);
+            list.remove(list.size()-1);
+        }
+    }
+    
+    public List<List<Integer>> permuteUnique(int[] nums) {
+        List<List<Integer>>ans=new ArrayList<>();
+        List<Integer>list=new ArrayList<>();
+        HashSet<String>hash=new HashSet<>();
+        helper(nums,ans,list,"",hash);
+        return ans;
+    }
+}
