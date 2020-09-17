@@ -1,0 +1,69 @@
+class Solution {
+    
+    private String addRemainingElements(int index,String str,String ans,int carry){
+        
+        while(index>=0){
+            int num=str.charAt(index)-'0';
+            
+            int value=getValue(num,0,carry);
+            carry=getCarry(num,0,carry);
+            ans=value+ans;
+            index--;
+        }
+        if(carry==1){
+            ans=carry+ans;
+            carry=0;
+        }
+            
+        return ans;
+        
+    }
+    
+    private int getCarry(int num1,int num2,int carry){
+        int sum=num1+num2+carry;
+       if(sum==2 || sum==3)
+           return 1;
+        return 0;
+    }
+    
+    private int getValue(int num1,int num2,int carry){
+        int sum=num1+num2+carry;
+        if(sum==0 || sum==2)
+            return 0;
+        return 1;
+            
+    }
+    
+    public String addBinary(String a, String b) {
+        int carry=0,i=a.length()-1,j=b.length()-1;
+        String ans="";
+       while(i>=0 && j>=0){
+           
+           int num1=a.charAt(i)-'0';
+           int num2=b.charAt(j)-'0';
+           
+           int value=getValue(num1,num2,carry);
+           carry=getCarry(num1,num2,carry);
+           ans=value+ans;
+           
+           i--;
+           j--;
+       }
+         
+        if(i>=0){
+           
+            ans=addRemainingElements(i,a,ans,carry);
+           carry=0;
+        }
+        else if(j>=0){
+            ans=addRemainingElements(j,b,ans,carry);
+            carry=0;
+        }
+         if(carry==1 ){
+            ans=carry+ans;
+            carry=0;
+        }
+        
+        return ans;
+    }
+}
