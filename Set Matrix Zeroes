@@ -1,0 +1,30 @@
+class Solution {
+    public void setZeroes(int[][] mat) {
+        int m=mat.length;
+        int n=mat[0].length;
+        HashSet<Integer>row=new HashSet<>();
+        HashSet<Integer>col=new HashSet<>();
+        
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(mat[i][j]==0){
+                    if(!row.contains(i))
+                        row.add(i);
+                    if(!col.contains(j))
+                        col.add(j);
+                    
+                }
+            }
+        }
+        
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(row.contains(i))
+                    mat[i][j]=0;
+                if(col.contains(j))
+                        mat[i][j]=0;
+            }
+        }
+        
+    }
+}
